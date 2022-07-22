@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    #container{
+      display: flex;
+      flex-wrap: wrap;
+    }
+		#container > div{
+      padding: 5px;
+    }
+		#container > div img{
+      display: block;
+    }
+  </style>
+  <script src="../../packages/core/dist/hop-up.development.umd.js"></script>
+</head>
+<body>
+<div style="padding: 10px;">
+  <button onclick="filter(event)" data-value="all">全部</button>
+  <button onclick="filter(event)" data-value="Fighter">Fighter</button>
+  <button onclick="filter(event)" data-value="Tank">Tank</button>
+  <button onclick="filter(event)" data-value="Mage">Mage</button>
+  <button onclick="filter(event)" data-value="Assassin">Assassin</button>
+</div>
+<div id="container"></div>
+<script>
+  /**
+   * @typedef {import('../../packages/core')} HopUp
+   * */
+  const container = document.getElementById('container');
+  let documents;
+  fetch('../champion.json').then(async (res) => {
+    const json = await res.json();
+    const data = Object.keys(json.data).map(key => {
+      return json.data[key];
+    });
+
+    documents = data.map(v => {
+      const dom = HopUp.createElement('div');
+      dom.innerHTML = `<img src="https://cdngarenanow-a.akamaihd.net/games/lol/2020/LOLwebsite/champion/${v.id}_0.jpg" alt="${v.name}" >`;
+      return {
+        data: v,
+        dom,
+        placeholder: document.createComment(`${v.id}: ${v.name}`),
+      };
+    });
+    documents.forEach(v => {
+      container.appendChild(v.dom);
+    });
+  });
+
+  const hopGroup = HopUp.createHopGroup(document.getElementById('container'));
+
+  function filter(e) {
+    const value = e.target.dataset.value;
+    hopGroup
+      .snapshot()
+      .use(async (ctx, next) => {
+        const remove = documents.filter(v => v.dom.offsetParent !== null && !(v.data.tags.includes(value) || value === 'all')).map(v => v.dom);
+        ctx.snapshot.forEach((v, el) => {
+          if (remove.includes(el)) {
+            v.stat = 'remove';
+          }
+        });
+        await next();
+      })
+      // .use(HopUp.FadeOut)
+      .use(async (_, next) => {
+        documents.forEach(v => {
+          if (v.data.tags.includes(value) || value === 'all') {
+            if (v.dom.offsetParent === null) {
+              container.replaceChild(v.dom, v.placeholder);
+            }
+          } else {
+            if (v.dom.offsetParent !== null) {
+              container.replaceChild(v.placeholder, v.dom);
+            }
+          }
+        });
+        await next();
+      })
+      .snapshot()
+      .use(HopUp.Flutter)
+      .use(HopUp.FadeIn)
+      .run();
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<button onclick="append()">按钮</button>
+<script>
+  function append() {
+    const dom = document.createElement('div');
+    dom.style.height = '200px';
+    dom.style.width = '200px';
+    dom.style.background = 'red';
+    dom.style.transition = 'all ease .3s';
+    dom.style.position = 'relative';
+    document.body.appendChild(dom);
+
+    dom.style.top = '10px';
+    // dom.offsetHeight;
+    dom.style.top = '100px';
+  }
+</script>
+</body>
+</html>
