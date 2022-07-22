@@ -2,6 +2,7 @@
   "name": "hopup",
   "version": "1.0.0",
   "description": "",
+  "repository": "https://github.com/timoodada/hopup",
   "main": "./dist/hop-up.umd.js",
   "types": "./src/index.ts",
   "scripts": {

@@ -4715,9 +4715,10 @@ hoopy@^0.1.4:
   resolved "https://registry.npmmirror.com/hoopy/-/hoopy-0.1.4.tgz#609207d661100033a9a9402ad3dea677381c1b1d"
   integrity sha512-HRcs+2mr52W0K+x8RzcLzuPPmVIKMSv97RGHy0Ea9y/mpcaK+xTrjICA04KAHi4GRzxliNqNJEFYWHghy3rSfQ==
 
-"hopup@..\\..\\packages\\core\\hopup-1.0.0.tgz":
+hopup@^1.0.0:
   version "1.0.0"
-  resolved "..\\..\\packages\\core\\hopup-1.0.0.tgz#f933524d1d32874c8ac3b1e4c64acb5df29f6b41"
+  resolved "https://registry.npmmirror.com/hopup/-/hopup-1.0.0.tgz#29b0ec7c381dd3d4f5d12bb1d2decea2e92d5a16"
+  integrity sha512-vlqx2o9kBvIURQUb9E5Q3FX6uIjBPLLfAwOMqCYsnxcjzlh9zJ4kwIQ1a8UaW6IQEJNj4g9vWwsZDfsSs142VA==
 
 hpack.js@^2.1.6:
   version "2.1.6"
